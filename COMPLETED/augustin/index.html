@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <title>Encryption and Decryption</title>
+    <script>
+        const charToNum = {'a': 10, 'b': 11, 'c': 12, 'd': 13, 'e': 14, 'f': 15, 'g': 16, 'h': 17, 'i': 18, 'j': 19, 'k': 20, 'l': 21, 'm': 22, 'n': 23, 'o': 24, 'p': 25, 'q': 26, 'r': 27, 's': 28, 't': 29, 'u': 30, 'v': 31, 'w': 32, 'x': 33, 'y': 34, 'z': 36, ' ': 37};
+        const numToChar = {'10': 'a', '11': 'b', '12': 'c', '13': 'd', '14': 'e', '15': 'f', '16': 'g', '17': 'h', '18': 'i', '19': 'j', '20': 'k', '21': 'l', '22': 'm', '23': 'n', '24': 'o', '25': 'p', '26': 'q', '27': 'r', '28': 's', '29': 't', '30': 'u', '31': 'v', '32': 'w', '33': 'x', '34': 'y', '36': 'z', '37': ' '};
+
+        function charsToNums(inputStr) {
+            let nums = '';
+            for (let char of inputStr) {
+                if (char.toLowerCase() in charToNum) {
+                    nums += charToNum[char.toLowerCase()];
+                } else {
+                    nums += char;
+                }
+            }
+            return nums;
+        }
+
+        function numsToChars(inputNums) {
+            let chars = '';
+            for (let i = 0; i < inputNums.length; i += 2) {
+                const num = inputNums.substring(i, i + 2);
+                if (num in numToChar) {
+                    chars += numToChar[num];
+                } else {
+                    chars += num;
+                }
+            }
+            return chars;
+        }
+
+        function encryptText() {
+            const inputChars = document.getElementById('inputChars').value;
+            const encryptedNums = charsToNums(inputChars);
+            document.getElementById('output').innerText = 'Encryption: ' + encryptedNums;
+        }
+
+        function decryptText() {
+            const inputNums = document.getElementById('inputChars').value;
+            const decryptedChars = numsToChars(inputNums);
+            document.getElementById('output').innerText = 'Decryption: ' + decryptedChars;
+        }
+    </script>
+</head>
+<body>
+    <h1>Encryption and Decryption</h1>
+    <label for="inputChars">Enter text:</label>
+    <input type="text" id="inputChars">
+    <br>
+    <button onclick="encryptText()">Encrypt</button>
+    <button onclick="decryptText()">Decrypt</button>
+    <p id="output"></p>
+</body>
+</html>

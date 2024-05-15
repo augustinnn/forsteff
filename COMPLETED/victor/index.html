@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Caesar Cipher Encryption and Decryption</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Caesar Cipher Encryption and Decryption</h1>
+        <form>
+            <label for="message">Enter your message:</label>
+            <input type="text" id="message">
+            <label for="key">Enter the encryption key (a number between 1 and 25):</label>
+            <input type="number" id="key" min="1" max="25">
+            <button type="button" onclick="encryptMessage()">Encrypt</button>
+            <button type="button" onclick="decryptMessage()">Decrypt</button>
+        </form>
+        <div id="encryptedMessage"></div>
+    </div>
+
+    <script>
+        function encryptMessage() {
+            const message = document.getElementById('message').value;
+            const key = parseInt(document.getElementById('key').value);
+            let encryptedMessage = '';
+
+            for (let i = 0; i < message.length; i++) {
+                const char = message[i];
+                let encryptedChar = char;
+
+                if (char.match(/[A-Za-z]/)) {
+                    const baseCharCode = char.toLowerCase() === char ? 'a'.charCodeAt(0) : 'A'.charCodeAt(0);
+                    const shiftedCharCode = (char.charCodeAt(0) - baseCharCode + key) % 26;
+                    encryptedChar = String.fromCharCode(baseCharCode + shiftedCharCode);
+                }
+
+                encryptedMessage += encryptedChar;
+            }
+
+            document.getElementById('encryptedMessage').textContent = encryptedMessage;
+        }
+
+        function decryptMessage() {
+            const encryptedMessage = document.getElementById('message').value;
+            const key = parseInt(document.getElementById('key').value);
+            let decryptedMessage = '';
+
+            for (let i = 0; i < encryptedMessage.length; i++) {
+                const char = encryptedMessage[i];
+                let decryptedChar = char;
+
+                if (char.match(/[A-Za-z]/)) {
+                    const baseCharCode = char.toLowerCase() === char ? 'a'.charCodeAt(0) : 'A'.charCodeAt(0);
+                    const shiftedCharCode = (char.charCodeAt(0) - baseCharCode - key + 26) % 26;
+                    decryptedChar = String.fromCharCode(baseCharCode + shiftedCharCode);
+                }
+
+                decryptedMessage += decryptedChar;
+            }
+
+            document.getElementById('encryptedMessage').textContent = decryptedMessage;
+        }
+    </script>
+</body>
+</html>
